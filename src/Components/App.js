@@ -1,10 +1,39 @@
-import { Component } from 'react';
+import { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import Form from './Form/Form';
 import ContactsList from './ConatctsList/ConatctsList';
 import './styles.css';
 
-export default class App extends Component {
+export default function App() {
+  const addContact = (userName, userNumber) => {
+    const [contacts, setContacts] = useState();
+    const contactsArr = [];
+
+    contacts.forEach(el => {
+      contactsArr.push(el.name, el.number);
+    });
+    if (contactsArr.includes(userNumber || userName.toLowerCase())) {
+      return alert('This person or number is already in contacts');
+    } else {
+      // setContacts(prevState => ({[prevState, ]}));
+    }
+  };
+
+  return (
+    <div>
+      <h1>Phonebook</h1>
+      <Form addContact={addContact} />
+      <h2>Contacts</h2>
+      <ContactsList
+        state={this.state}
+        findContact={this.findContact}
+        deleteContact={this.deleteContact}
+      />
+    </div>
+  );
+}
+
+class oldApp extends Component {
   state = {
     contacts: [],
 
@@ -26,22 +55,22 @@ export default class App extends Component {
     }
   }
 
-  addContact = (userName, userNumber) => {
-    const contactsArr = [];
-    this.state.contacts.forEach(el => {
-      contactsArr.push(el.name, el.number);
-    });
-    if (contactsArr.includes(userNumber || userName.toLowerCase())) {
-      return alert('This person or number is already in contacts');
-    } else {
-      this.setState(prevState => ({
-        contacts: [
-          ...prevState.contacts,
-          { id: uuidv4(), name: userName, number: userNumber },
-        ],
-      }));
-    }
-  };
+  // addContact = (userName, userNumber) => {
+  //   const contactsArr = [];
+  //   this.state.contacts.forEach(el => {
+  //     contactsArr.push(el.name, el.number);
+  //   });
+  //   if (contactsArr.includes(userNumber || userName.toLowerCase())) {
+  //     return alert('This person or number is already in contacts');
+  //   } else {
+  //     this.setState(prevState => ({
+  //       contacts: [
+  //         ...prevState.contacts,
+  //         { id: uuidv4(), name: userName, number: userNumber },
+  //       ],
+  //     }));
+  //   }
+  // };
 
   findContact = name => {
     this.setState({ filter: name });
