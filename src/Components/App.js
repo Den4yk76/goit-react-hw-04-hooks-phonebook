@@ -37,7 +37,7 @@ export default function App() {
   };
 
   const findContact = name => {
-    setFilter(name);
+    setFilter(name.trim());
   };
 
   const deleteContact = e => {
