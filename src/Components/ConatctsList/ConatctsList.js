@@ -5,11 +5,12 @@ import Filter from '../Filter/Filter';
 
 export default class ContactsList extends Component {
   onChange = e => {
+    console.log('onChange');
     this.props.findContact(e.currentTarget.value);
   };
 
   render() {
-    const { filter } = this.props.state;
+    const { filter } = this.props;
 
     return (
       <>
@@ -25,12 +26,13 @@ export default class ContactsList extends Component {
         <ul>
           {!filter ? (
             <ContactsListItem
-              contacts={this.props.state.contacts}
+              contacts={this.props.contacts}
               deleteContact={this.props.deleteContact}
             />
           ) : (
             <Filter
-              state={this.props.state}
+              filter={this.props.filter}
+              contacts={this.props.contacts}
               deleteContact={this.props.deleteContact}
             />
           )}

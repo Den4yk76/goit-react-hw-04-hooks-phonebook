@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 export default class Filter extends Component {
   findUsers = () => {
-    const { contacts, filter } = this.props.state;
+    const { contacts, filter } = this.props;
 
     return contacts.filter(el =>
       el.name.toLowerCase().includes(filter.toLowerCase()),

@@ -5,18 +5,43 @@ import ContactsList from './ConatctsList/ConatctsList';
 import './styles.css';
 
 export default function App() {
+  const [contacts, setContacts] = useState([]);
+  const [filter, setFilter] = useState('');
+
+  useEffect(() => {
+    const parsedContacts = JSON.parse(localStorage.getItem('contacts'));
+    if (parsedContacts) {
+      setContacts(parsedContacts);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('contacts', JSON.stringify(contacts));
+  }, [contacts]);
+
   const addContact = (userName, userNumber) => {
-    const [contacts, setContacts] = useState();
     const contactsArr = [];
 
     contacts.forEach(el => {
       contactsArr.push(el.name, el.number);
     });
+
     if (contactsArr.includes(userNumber || userName.toLowerCase())) {
       return alert('This person or number is already in contacts');
     } else {
-      // setContacts(prevState => ({[prevState, ]}));
+      setContacts(prevState => [
+        ...prevState,
+        { id: uuidv4(), name: userName, number: userNumber },
+      ]);
     }
+  };
+
+  const findContact = name => {
+    setFilter(name);
+  };
+
+  const deleteContact = e => {
+    setContacts(prevState => prevState.filter(el => el.id !== e.target.id));
   };
 
   return (
@@ -25,75 +50,11 @@ export default function App() {
       <Form addContact={addContact} />
       <h2>Contacts</h2>
       <ContactsList
-        state={this.state}
-        findContact={this.findContact}
-        deleteContact={this.deleteContact}
+        filter={filter}
+        contacts={contacts}
+        findContact={findContact}
+        deleteContact={deleteContact}
       />
     </div>
   );
-}
-
-class oldApp extends Component {
-  state = {
-    contacts: [],
-
-    filter: '',
-  };
-
-  componentDidMount() {
-    const parsedContacts = JSON.parse(localStorage.getItem('contacts'));
-
-    if (parsedContacts) {
-      this.setState({ contacts: parsedContacts });
-    }
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.contacts !== this.state.contacts) {
-      console.log('Обновилось поле contacts');
-      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
-    }
-  }
-
-  // addContact = (userName, userNumber) => {
-  //   const contactsArr = [];
-  //   this.state.contacts.forEach(el => {
-  //     contactsArr.push(el.name, el.number);
-  //   });
-  //   if (contactsArr.includes(userNumber || userName.toLowerCase())) {
-  //     return alert('This person or number is already in contacts');
-  //   } else {
-  //     this.setState(prevState => ({
-  //       contacts: [
-  //         ...prevState.contacts,
-  //         { id: uuidv4(), name: userName, number: userNumber },
-  //       ],
-  //     }));
-  //   }
-  // };
-
-  findContact = name => {
-    this.setState({ filter: name });
-  };
-
-  deleteContact = e => {
-    this.setState(prevState => ({
-      contacts: prevState.contacts.filter(el => el.id !== e.target.id),
-    }));
-  };
-
-  render() {
-    return (
-      <div>
-        <h1>Phonebook</h1>
-        <Form addContact={this.addContact} />
-        <h2>Contacts</h2>
-        <ContactsList
-          state={this.state}
-          findContact={this.findContact}
-          deleteContact={this.deleteContact}
-        />
-      </div>
-    );
-  }
 }
