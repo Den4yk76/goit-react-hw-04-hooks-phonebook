@@ -1,5 +1,5 @@
 import { useState } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 export default function Form({ addContact }) {
   const [name, setName] = useState('');
@@ -51,6 +51,6 @@ export default function Form({ addContact }) {
   );
 }
 
-// Form.propTypes = {
-//   addContact: PropTypes.func,
-// };
+Form.propTypes = {
+  addContact: PropTypes.func,
+};

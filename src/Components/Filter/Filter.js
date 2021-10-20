@@ -1,4 +1,4 @@
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 export default function Filter({ contacts, filter, deleteContact }) {
   const findUsers = () => {
@@ -24,4 +24,8 @@ export default function Filter({ contacts, filter, deleteContact }) {
   });
 }
 
-// Filter.propTypes = { state: PropTypes.object };
+Filter.propTypes = {
+  filter: PropTypes.string,
+  contacts: PropTypes.arrayOf(PropTypes.object),
+  deleteContact: PropTypes.func,
+};

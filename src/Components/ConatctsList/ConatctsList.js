@@ -1,4 +1,4 @@
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import ContactsListItem from './ContactsListItem';
 import Filter from '../Filter/Filter';
 
@@ -38,8 +38,7 @@ export default function ContactsList({
   );
 }
 
-// ContactsList.propTypes = {
-//   state: PropTypes.object,
-//   findContact: PropTypes.func,
-//   deleteContact: PropTypes.func,
-// };
+ContactsList.propTypes = {
+  filter: PropTypes.string,
+  findContact: PropTypes.func,
+};

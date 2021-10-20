@@ -1,4 +1,4 @@
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 export default function ContactsListItem({ contacts, deleteContact }) {
   return contacts.map(el => {
@@ -18,6 +18,7 @@ export default function ContactsListItem({ contacts, deleteContact }) {
   });
 }
 
-// ContactsListItem.propTypes = {
-//   contacts: PropTypes.arrayOf(PropTypes.object),
-// };
+ContactsListItem.propTypes = {
+  contacts: PropTypes.arrayOf(PropTypes.object),
+  deleteContact: PropTypes.func,
+};
